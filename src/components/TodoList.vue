@@ -2,9 +2,11 @@
   <div>
     <ul>
       <todo-item
-          v-for="todo in todos"
+          v-for="(todo, i) in todos"
           :todo="todo"
+          :pos="i + 1"
           @remove-todo="removeTodo"
+          @update-todo="updateTodo"
       >
       </todo-item>
     </ul>
@@ -28,6 +30,9 @@ export default {
   methods: {
     removeTodo(id) {
       this.$emit('remove-todo', id)
+    },
+    updateTodo(todo) {
+      this.$emit('update-todo', todo)
     }
   }
 }

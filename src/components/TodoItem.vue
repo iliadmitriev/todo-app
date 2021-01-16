@@ -2,13 +2,17 @@
   <li>
     <span v-bind:class="{done: todo.completed}">
       <label>
-        <input type="checkbox" v-model="todo.completed">
+        <input
+            type="checkbox"
+            v-model="todo.completed"
+            @change="$emit('update-todo', todo)"
+        >
       </label>
       <strong>
-        {{ todo.id }}
+        {{ pos }}
       </strong>
       {{ todo.title }}
-      <span class="datetime">{{ todo.datetime }}</span>
+      <span class="datetime">{{ todo.datetime | formatDate }}</span>
     </span>
     <button
         class="rm"
@@ -25,6 +29,10 @@ export default {
   props: {
     todo: {
       type: Object,
+      required: true
+    },
+    pos: {
+      type: Number,
       required: true
     }
   }
