@@ -20,6 +20,7 @@ export default {
   methods: {
     addNewItem() {
       if (this.newItem.trim()) {
+        const id = Math.random().toString(36).substring(1)
         const newTodo = {
           title: this.newItem,
           datetime: new Date().toJSON(),
