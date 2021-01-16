@@ -21,11 +21,7 @@ export default {
   name: 'App',
   data() {
     return {
-      todos: [
-        {id: 1, title: 'Купить хлеб', datetime: (new Date()).toLocaleString(), completed: false},
-        {id: 2, title: 'Купить масло', datetime: (new Date()).toLocaleString(), completed: false},
-        {id: 3, title: 'Купить пельмени', datetime: (new Date()).toLocaleString(), completed: false}
-      ]
+      todos: []
     }
   },
   mounted() {
@@ -42,8 +38,8 @@ export default {
     AddTodo
   },
   methods: {
-    addTodo(id, todo) {
-      this.todos.unshift(todo)
+    addTodo(todo) {
+      this.todos.push(todo)
     },
     removeTodo(id) {
       const idx = this.todos.findIndex(el => el.id === id)
