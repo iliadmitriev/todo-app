@@ -21,12 +21,17 @@ export default {
   name: 'App',
   data() {
     return {
-      todos: [
-        {id: 1, title: 'Купить хлеб', datetime: (new Date()).toLocaleString(), completed: false},
-        {id: 2, title: 'Купить масло', datetime: (new Date()).toLocaleString(), completed: false},
-        {id: 3, title: 'Купить пельмени', datetime: (new Date()).toLocaleString(), completed: false},
-      ]
+      todos: []
     }
+  },
+  mounted() {
+    fetch('https://todo-app-idm-default-rtdb.europe-west1.firebasedatabase.app/todo.json')
+        .then(response => response.json())
+        .then(json => {
+         return  Object.entries(json)
+             .map(el=> ({id: el[0], ...el[1]}))
+        })
+    .then (arr => this.todos = arr)
   },
   components: {
     TodoList,
@@ -34,7 +39,7 @@ export default {
   },
   methods: {
     addTodo(todo) {
-      this.todos.unshift(todo)
+      this.todos.push(todo)
     },
     removeTodo(id) {
       const idx = this.todos.findIndex(el => el.id === id)
