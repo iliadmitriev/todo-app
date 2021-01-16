@@ -1,12 +1,14 @@
 <template>
   <li>
     <span v-bind:class="{done: todo.completed}">
-      <input type="checkbox" v-model="todo.completed">
+      <label>
+        <input type="checkbox" v-model="todo.completed">
+      </label>
       <strong>
         {{ todo.id }}
       </strong>
-    {{ todo.title }}
-      <span>{{ todo.datetime | date }}</span>
+      {{ todo.title }}
+      <span class="datetime">{{ todo.datetime }}</span>
     </span>
     <button
         class="rm"
@@ -51,6 +53,11 @@ li {
 
 input {
   margin-right: 1rem;
+}
+
+.datetime {
+  font-size: 12px;
+  color: #3e3e3e;
 }
 
 </style>
