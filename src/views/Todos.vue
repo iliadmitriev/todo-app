@@ -6,8 +6,9 @@
         @add-todo="addTodo"
     ></add-todo>
     <hr>
+    <loader v-if="loading"></loader>
     <todo-list
-        v-if="todos.length > 0"
+        v-else-if="todos.length > 0"
         v-bind:todos="todos"
         @remove-todo="removeTodo"
         @update-todo="updateTodo"
@@ -20,12 +21,14 @@
 <script>
 import TodoList from "@/components/TodoList"
 import AddTodo from "@/components/AddTodo"
+import Loader from "@/components/Loader"
 
 export default {
   name: 'Todos',
   data() {
     return {
-      todos: []
+      todos: [],
+      loading: true
     }
   },
   mounted() {
@@ -35,20 +38,15 @@ export default {
           return Object.entries(json)
               .map(el => ({id: el[0], ...el[1]}))
         })
-        .then(arr => this.todos = arr)
-  },
-  mounted() {
-    fetch('https://todo-app-idm-default-rtdb.europe-west1.firebasedatabase.app/todo.json')
-        .then(response => response.json())
-        .then(json => {
-          return  Object.entries(json)
-              .map(el=> ({id: el[0], ...el[1]}))
+        .then(arr => {
+          this.todos = arr
+          this.loading = false
         })
-        .then (arr => this.todos = arr)
   },
   components: {
     TodoList,
-    AddTodo
+    AddTodo,
+    Loader
   },
   methods: {
     addTodo(todo) {
