@@ -23,11 +23,11 @@ export default {
         const newTodo = {
           id: Date.now(),
           title: this.newItem,
-          datetime: Date.now(),
+          datetime: (new Date()).toLocaleString(),
           completed: false
         }
         this.$emit('add-todo', newTodo)
-        this.newItem=''
+        this.newItem = ''
       }
     }
   }
@@ -38,6 +38,7 @@ export default {
 form {
   display: flex;
 }
+
 button {
 
 }

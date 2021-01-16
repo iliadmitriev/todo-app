@@ -22,9 +22,9 @@ export default {
   data() {
     return {
       todos: [
-        {id: 1, title: 'Купить хлеб', datetime: Date.now(), completed: false},
-        {id: 2, title: 'Купить масло', datetime: Date.now(), completed: false},
-        {id: 3, title: 'Купить пельмени', datetime: Date.now(), completed: false},
+        {id: 1, title: 'Купить хлеб', datetime: (new Date()).toLocaleString(), completed: false},
+        {id: 2, title: 'Купить масло', datetime: (new Date()).toLocaleString(), completed: false},
+        {id: 3, title: 'Купить пельмени', datetime: (new Date()).toLocaleString(), completed: false},
       ]
     }
   },
