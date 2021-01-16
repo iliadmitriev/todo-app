@@ -20,13 +20,14 @@ export default {
   methods: {
     addNewItem() {
       if (this.newItem.trim()) {
+        const id = Math.random().toString(36).substring(1)
         const newTodo = {
           id: Date.now(),
           title: this.newItem,
           datetime: (new Date()).toLocaleString(),
           completed: false
         }
-        this.$emit('add-todo', newTodo)
+        this.$emit('add-todo', id, newTodo)
         this.newItem = ''
       }
     }

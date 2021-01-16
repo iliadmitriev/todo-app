@@ -24,16 +24,25 @@ export default {
       todos: [
         {id: 1, title: 'Купить хлеб', datetime: (new Date()).toLocaleString(), completed: false},
         {id: 2, title: 'Купить масло', datetime: (new Date()).toLocaleString(), completed: false},
-        {id: 3, title: 'Купить пельмени', datetime: (new Date()).toLocaleString(), completed: false},
+        {id: 3, title: 'Купить пельмени', datetime: (new Date()).toLocaleString(), completed: false}
       ]
     }
+  },
+  mounted() {
+    fetch('https://todo-app-idm-default-rtdb.europe-west1.firebasedatabase.app/todo.json')
+        .then(response => response.json())
+        .then(json => {
+         return  Object.entries(json)
+             .map(el=> ({id: el[0], ...el[1]}))
+        })
+    .then (arr => this.todos = arr)
   },
   components: {
     TodoList,
     AddTodo
   },
   methods: {
-    addTodo(todo) {
+    addTodo(id, todo) {
       this.todos.unshift(todo)
     },
     removeTodo(id) {
