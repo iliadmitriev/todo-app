@@ -20,29 +20,13 @@ export default {
   methods: {
     addNewItem() {
       if (this.newItem.trim()) {
-        const id = Math.random().toString(36).substring(1)
         const newTodo = {
           title: this.newItem,
           datetime: new Date().toJSON(),
           completed: false
         }
-        fetch('https://todo-app-idm-default-rtdb.europe-west1.firebasedatabase.app/todo.json',{
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(newTodo),
-          cache: 'no-cache',
-          redirect: 'follow'
-        })
-            .then(response => response.json())
-            .then(json => {
-              if (json.name) {
-                newTodo.id = json.name
-                this.$emit('add-todo', newTodo)
-                this.newItem = ''
-              }
-            })
+        this.$emit('add-todo', newTodo)
+        this.newItem = ''
       }
     }
   }
