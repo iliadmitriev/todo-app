@@ -8,6 +8,7 @@
     <todo-list
         v-bind:todos="todos"
         @remove-todo="removeTodo"
+        @update-todo="updateTodo"
     >
     </todo-list>
   </div>
@@ -23,6 +24,15 @@ export default {
     return {
       todos: []
     }
+  },
+  mounted() {
+    fetch('https://todo-app-idm-default-rtdb.europe-west1.firebasedatabase.app/todo.json')
+        .then(response => response.json())
+        .then(json => {
+          return Object.entries(json)
+              .map(el => ({id: el[0], ...el[1]}))
+        })
+        .then(arr => this.todos = arr)
   },
   mounted() {
     fetch('https://todo-app-idm-default-rtdb.europe-west1.firebasedatabase.app/todo.json')
@@ -46,6 +56,18 @@ export default {
       if (idx >= 0) {
         this.todos.splice(idx, 1)
       }
+    },
+    updateTodo(data) {
+      fetch(`https://todo-app-idm-default-rtdb.europe-west1.firebasedatabase.app/todo/${data.id}.json`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({completed: data.completed}),
+        cache: 'no-cache',
+        redirect: 'follow'
+      })
+          .then(response => console.log(response))
     }
   }
 }
